@@ -9,14 +9,13 @@ class ApiCollector(ApiCollectorInterface):
         "airline_iata", "aircraft_icao", "updated", "status"
     }
 
-    @classmethod
-    def collect_essential_information(cls, json_data: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    def collect_essential_information(self, json_data: List[Dict[str, str]]) -> List[Dict[str, str]]:
         if not isinstance(json_data, list):
             raise ValueError(f"Unexpected response format: Expected a list. Response: {json_data}")
 
         extracted_data = []
         for flight in json_data:
-            if not all(key in flight for key in cls.REQUIRED_KEYS):
+            if not all(key in flight for key in self.REQUIRED_KEYS):
                 continue
 
             extracted_data.append({
